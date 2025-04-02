@@ -15,6 +15,6 @@ public class File {
         Files.write(Paths.get(failinimi2), checksum.getBytes());
     }
     public static boolean kasfailonolemas (String failinimi){
-        return Files.exists(Paths.get(failinimi));
+        return Files.exists(Paths.get(failinimi));///
     }
 }
