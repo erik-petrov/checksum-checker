@@ -1,23 +1,18 @@
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.security.NoSuchAlgorithmException;
 
-public class File {
-
-    public String path;
-    public String failinimi;
-    public static byte[] loeBaite(String failinimi) throws IOException{
-        return Files.readAllBytes(Paths.get(failinimi));
+public class File extends java.io.File {
+    public File(String path) throws IOException, NoSuchAlgorithmException {
+        super(path);
+        this.checksum = new Checksum(null, path);
     }
 
-    public static String loeSõnu(String failinimi) throws IOException {
-        return new String(Files.readAllBytes(Paths.get(failinimi)));
+    public boolean verifyChecksum(String sum){
+        return checksum.checkChecksum(sum);
     }
-    public static void salvestaTulemusFaili(String checksum, String failinimi2) throws IOException{
-        Files.write(Paths.get(failinimi2), checksum.getBytes());
+
+    public String getChecksumString() {
+        return checksum.getHash();
     }
-    public static boolean kasFailOnOlemas (String failinimi){
-        return Files.exists(Paths.get(failinimi));///
-    }
+    private final Checksum checksum;
 }
