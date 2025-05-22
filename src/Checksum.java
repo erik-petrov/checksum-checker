@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 class Checksum extends Algorithm {
     private final String hash;
