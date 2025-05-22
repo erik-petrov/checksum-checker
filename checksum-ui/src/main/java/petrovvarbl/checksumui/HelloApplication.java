@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 
 public class HelloApplication extends Application {
-    private final Text filedescribe = new Text("Enter file path(or dragndrop):");
+    private final Text filedescribe = new Text("Enter file path(or drag-n-drop):");
     private final Text checksumdescribe = new Text("Checksum:");
     private final TextArea filefield = new TextArea("");
     private final TextArea checksumfield = new TextArea("");
@@ -50,7 +50,9 @@ public class HelloApplication extends Application {
                     File f = new File(p);
                     checksumfield.setText(f.getChecksumString());
                 } catch (IOException | NoSuchAlgorithmException e) {
-                    throw new RuntimeException(e);
+                    Alert a = new Alert(Alert.AlertType.ERROR);
+                    a.setContentText("Checksum retrieval error:\n" + e);
+                    a.show();
                 }
             }
         });
@@ -84,7 +86,9 @@ public class HelloApplication extends Application {
                         a.show();
                     }
                 } catch (IOException | NoSuchAlgorithmException e) {
-                    throw new RuntimeException(e);
+                    Alert a = new Alert(Alert.AlertType.ERROR);
+                    a.setContentText("Checksum comparison error:\n" + e);
+                    a.show();
                 }
             }
         });
@@ -117,7 +121,7 @@ public class HelloApplication extends Application {
                     f = new File(db.getFiles().getFirst().getPath());
                 } catch (IOException | NoSuchAlgorithmException e) {
                     Alert r = new Alert(Alert.AlertType.ERROR);
-                    r.setContentText("Error getting file.");
+                    r.setContentText("Drag-n-drop error:\n" + e);
                     r.show();
                     x.consume();
                     return;
